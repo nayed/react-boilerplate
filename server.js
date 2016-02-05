@@ -2,24 +2,12 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RoutingContext } from 'react-router'
 
-import AppComponent from './components/app'
-import IndexComponent from './components/index'
-
 import express from 'express'
 import http from 'http'
 
-const app = express()
+import { routes } from './routes'
 
-const routes = {
-    path: '',
-    component: AppComponent,
-    childRoutes: [
-        {
-            path: '/',
-            component: IndexComponent
-        }
-    ]
-}
+const app = express()
 
 app.use(express.static('public'))
 
@@ -50,7 +38,6 @@ app.get('*', (req, res) => {
             res.sendStatus(404)
         }
     })
-    //res.render('index')
 })
 
 const server = http.createServer(app)
